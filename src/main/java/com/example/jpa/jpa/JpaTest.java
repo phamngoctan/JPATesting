@@ -17,11 +17,12 @@ public class JpaTest {
 	public JpaTest(EntityManager manager) {
 		this.manager = manager;
 	}
+	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistenceUnit");
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("testing-h2");
 		EntityManager manager = factory.createEntityManager();
 		JpaTest test = new JpaTest(manager);
 
@@ -39,9 +40,6 @@ public class JpaTest {
 		System.out.println(".. done");
 	}
 
-
-
-
 	private void createEmployees() {
 		int numOfEmployees = manager.createQuery("Select a From Employee a", Employee.class).getResultList().size();
 		if (numOfEmployees == 0) {
@@ -54,7 +52,6 @@ public class JpaTest {
 		}
 	}
 
-
 	private void listEmployees() {
 		List<Employee> resultList = manager.createQuery("Select a From Employee a", Employee.class).getResultList();
 		System.out.println("num of employess:" + resultList.size());
@@ -62,6 +59,5 @@ public class JpaTest {
 			System.out.println("next employee: " + next);
 		}
 	}
-
 
 }

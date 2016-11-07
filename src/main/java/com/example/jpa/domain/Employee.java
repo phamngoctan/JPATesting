@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
@@ -14,6 +15,7 @@ import com.example.jpa.type.ObjectDataType;
 
 @Entity
 @TypeDef(name="ObjectDataType", typeClass=ObjectDataType.class)
+@Table(name = "employee")
 public class Employee {
 	@Id
 	@GeneratedValue

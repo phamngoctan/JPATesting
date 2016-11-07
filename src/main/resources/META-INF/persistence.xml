@@ -1,19 +1,55 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
-	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
-	<persistence-unit name="persistenceUnit" transaction-type="RESOURCE_LOCAL">
-		<!-- shouldn't be valid for java SE per specification, but it works for EclipseLink ... -->
-		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	
+	<!-- 
+	<persistence-unit name="jpaTestPU" transaction-type="JTA">
 		<properties>
-		
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/example" />
-			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-			<property name="javax.persistence.jdbc.user" value="postgres" />
-			<property name="javax.persistence.jdbc.password" value="postgres" />
-
-			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>			
+			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:sample" />
+			<property name="javax.persistence.jdbc.user" value="" />
+			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+			<property name="javax.persistence.jdbc.password" value="" />
+			<property name="javax.persistence.schema-generation.database.action"
+				value="drop-and-create" />
+			<property name="javax.persistence.sql-load-script-source"
+				value="META-INF/load.sql" />
+			<property name="hibernate.show_sql" value="true" />
 		</properties>
-
+    </persistence-unit>
+    -->
+    
+	<persistence-unit name="testing-h2" transaction-type="RESOURCE_LOCAL">
+		<description>Persistence using a built-in memory-only H2 (Hyperion) database</description>
+		<class>com.example.jpa.domain.Employee</class>
+		<class>com.example.jpa.domain.Department</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<validation-mode>AUTO</validation-mode>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+			<property name="hibernate.connection.driver_class" value="org.h2.Driver" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1" />
+		</properties>
 	</persistence-unit>
+	
+	<persistence-unit name="testing-psql"
+		transaction-type="RESOURCE_LOCAL">
+		<description>Persistence using my (production) PostgreSQL local database</description>
+		<class>foo</class>
+		<class>experimental</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<validation-mode>AUTO</validation-mode>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.temp.use_jdbc_metadata_defaults"
+				value="false" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql:testing" />
+			<property name="javax.persistence.jdbc.user" value="me" />
+			<property name="javax.persistence.jdbc.password" value="sdfsdf9" />
+		</properties>
+	</persistence-unit>
+
 </persistence>
