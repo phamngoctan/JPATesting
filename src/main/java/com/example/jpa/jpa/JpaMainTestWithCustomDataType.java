@@ -10,11 +10,11 @@ import javax.persistence.Persistence;
 import com.example.jpa.domain.Employee;
 import com.example.jpa.domain.Department;
 
-public class JpaTest {
+public class JpaMainTestWithCustomDataType {
 
 	private EntityManager manager;
 
-	public JpaTest(EntityManager manager) {
+	public JpaMainTestWithCustomDataType(EntityManager manager) {
 		this.manager = manager;
 	}
 	
@@ -24,7 +24,7 @@ public class JpaTest {
 	public static void main(String[] args) {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("testing-h2");
 		EntityManager manager = factory.createEntityManager();
-		JpaTest test = new JpaTest(manager);
+		JpaMainTestWithCustomDataType test = new JpaMainTestWithCustomDataType(manager);
 
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
